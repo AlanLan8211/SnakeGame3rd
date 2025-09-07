@@ -71,6 +71,40 @@ canvas {
     margin-bottom: 15px;
 }
 
+.speed-control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    width: 100%;
+    gap: 8px;
+}
+
+.speed-control label {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.speed-control select {
+    padding: 6px 10px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    background-color: white;
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.speed-control select:hover {
+    border-color: #2980b9;
+}
+
+.speed-control select:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
 button {
     padding: 8px 16px;
     background-color: #3498db;

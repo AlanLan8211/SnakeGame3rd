@@ -9,11 +9,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const restartBtn = document.getElementById('restart-btn');
     const scoreElement = document.getElementById('score');
     const highScoreElement = document.getElementById('high-score');
+    const speedSelect = document.getElementById('speed-select');
     
     // 游戏配置
     const gridSize = 20; // 网格大小
     const tileCount = canvas.width / gridSize; // 网格数量
-    let speed = 7; // 游戏速度
+    let speed = parseInt(speedSelect.value); // 游戏速度，从下拉菜单获取
     
     // 游戏状态
     let gameRunning = false;
@@ -178,12 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // 放置新的食物
             placeFood();
             
-            // 增加游戏速度
-            if (score % 50 === 0 && speed < 15) {
-                speed += 1;
-                clearInterval(gameInterval);
-                gameInterval = setInterval(gameLoop, 1000 / speed);
-            }
+            // 不再自动增加游戏速度，由用户通过下拉菜单控制
         } else {
             // 如果没有吃到食物，移除蛇尾
             snake.pop();
@@ -269,6 +265,17 @@ document.addEventListener('DOMContentLoaded', () => {
         gamePaused = false;
         pauseBtn.textContent = '暂停';
         gameInterval = setInterval(gameLoop, 1000 / speed);
+    }
+    
+    // 更新游戏速度
+    function updateGameSpeed() {
+        speed = parseInt(speedSelect.value);
+        
+        // 如果游戏正在运行，重新设置游戏循环间隔
+        if (gameRunning && !gamePaused) {
+            clearInterval(gameInterval);
+            gameInterval = setInterval(gameLoop, 1000 / speed);
+        }
     }
     
     // 键盘控制
@@ -395,6 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
     startBtn.addEventListener('click', startGame);
     pauseBtn.addEventListener('click', togglePause);
     restartBtn.addEventListener('click', restartGame);
+    speedSelect.addEventListener('change', updateGameSpeed);
     
     // 初始化游戏
     initGame();
